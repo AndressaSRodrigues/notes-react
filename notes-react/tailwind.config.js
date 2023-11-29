@@ -5,7 +5,11 @@ export default {
     './public/index.html',
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'note-pen': "url('src/assets/login-bg.jpg')"
+      }
+    },
   },
   plugins: [],
 }
