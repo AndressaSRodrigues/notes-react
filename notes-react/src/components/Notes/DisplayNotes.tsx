@@ -2,6 +2,7 @@ import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { db } from '../../firebase-config';
 import { useEffect, useState } from "react";
 import { Notes } from "../../interface/notes";
+import NotesCard from "./NotesCard";
 
 export default function DisplayNotes() {
     const notesCollectionRef = collection(db, 'notes');
@@ -24,13 +25,11 @@ export default function DisplayNotes() {
 
     return (
         <>
-            <h2>All Notes</h2>
+            <div className="flex flex-wrap justify-center gap-2 p-1">
             {notes.map((note) => (
-                <div key={note.id}>
-                    <span>{note.title}</span>
-                    <p>{note.content}</p>
-                </div>
+                <NotesCard key={note.id} title={note.title} content={note.content} />
             ))}
+            </div>
         </>
     );
 };
