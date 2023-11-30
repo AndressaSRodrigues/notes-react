@@ -1,9 +1,9 @@
-import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import Logo from "../assets/logo.png";
 
 export default function Header(){
     return (
         <header className="w-full h-[6vh] bg-black flex flex-row justify-between p-3 place-content-center lg:h-[8vh]">
-            <span>{<TextSnippetIcon />} myNotes</span>
+            <img src={Logo} alt="myNotes Logo" width={150} />
             <button className="text-xs">Log Out</button>
         </header>
     )
