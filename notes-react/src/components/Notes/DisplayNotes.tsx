@@ -27,7 +27,7 @@ export default function DisplayNotes() {
         <>
             <div className="flex flex-wrap justify-center gap-2 p-1">
             {notes.map((note) => (
-                <NotesCard key={note.id} title={note.title} content={note.content} />
+                <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
             ))}
             </div>
         </>
