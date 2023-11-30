@@ -8,6 +8,9 @@ export default {
     extend: {
       backgroundImage: {
         'note-pen': "url('src/assets/login-bg.jpg')"
+      },
+      colors: {
+        'green': '#15A39B',
       }
     },
   },

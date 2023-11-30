@@ -45,7 +45,7 @@ export default function CreateNote() {
                     <div className="mt-4 flex justify-end space-x-2">
                         <button
                             type="submit"
-                            className="bg-transparent">{<AddBoxIcon className="text-gray-500" />}
+                            className="bg-transparent">{<AddBoxIcon className="text-green" />}
                         </button>
                     </div>
                 </form>
