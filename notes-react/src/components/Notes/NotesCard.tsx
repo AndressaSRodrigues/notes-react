@@ -1,23 +1,26 @@
 import { useState } from "react";
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "../../firebase-config";
 import { NotesCardProps } from "../../interface/notesCardProps";
 import { Edit, DeleteForever } from '@mui/icons-material';
 import EditModal from "./EditNote";
+import DeleteNote from "./DeleteNote";
 
 export default function NotesCard({ id, title, content }: NotesCardProps) {
-    const [isModalOpen, setModalOpen] = useState<boolean>(false);
+    const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
+    const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
-    const onDelete = async (id: string) => {
-        const notesRef = doc(db, 'notes', id);
-        await deleteDoc(notesRef);
+    const opendEditModal = (id: string) => {
+        setEditModalOpen(true);
+        console.log(id, 'open modal')
     };
 
-    const opendModal = () => {
-        setModalOpen(true);
-        console.log('open modal')
-    }
+    const openDeleteModal = (id: string) => {
+        setDeleteModalOpen(true);
+        console.log(id, 'deleted');
+    };
 
+    const closeDeleteModal = () => {
+        setDeleteModalOpen(false);
+    };
 
     return (
         <>
@@ -25,12 +28,13 @@ export default function NotesCard({ id, title, content }: NotesCardProps) {
                 <span className="font-bold text-green">{title}</span>
                 <p className="font-thin">{content}</p>
                 <div className="mt-4 flex items-end justify-end space-x-2">
-                    <Edit data-testid="Edit" className="text-green p-1 cursor-pointer" onClick={opendModal} />
-                    <DeleteForever data-testid="DeleteForever" className="text-gray-500 p-1 cursor-pointer" onClick={() => onDelete(id)} />
+                    <Edit data-testid="Edit" className="text-green p-1 cursor-pointer" onClick={() => opendEditModal(id)} />
+                    <DeleteForever data-testid="DeleteForever" className="text-gray-500 p-1 cursor-pointer" onClick={() => openDeleteModal(id)} />
                 </div>
 
             </article>
-            {isModalOpen && <EditModal />}
+            {isEditModalOpen && <EditModal />}
+            {isDeleteModalOpen && <DeleteNote id={id} onCancel={closeDeleteModal} />}
         </>
     );
 };
