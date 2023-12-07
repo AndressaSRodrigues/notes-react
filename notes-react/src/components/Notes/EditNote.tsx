@@ -2,15 +2,9 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import { useState } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
+import { EditNoteProps } from "../../interface/editNoteProps";
 
-interface EditModalProps {
-    id: string,
-    onClose: () => void;
-    title?: string;
-    content?: string;
-}
-
-export default function EditModal({ id, onClose, title, content }: EditModalProps) {
+export default function EditModal({ id, onClose, title, content }: EditNoteProps) {
     const [editedTitle, setEditedTitle] = useState<string>(title || '');
     const [editedContent, setEditedContent] = useState<string>(content || '');
 
