@@ -3,6 +3,7 @@ import { db } from '../../firebase-config';
 import { useEffect, useState } from "react";
 import { Notes } from "../../interface/notes";
 import NotesCard from "./NotesCard";
+import Footer from "../Footer";
 
 export default function DisplayNotes() {
     const notesCollectionRef = collection(db, 'notes');
@@ -30,6 +31,7 @@ export default function DisplayNotes() {
                 <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
             ))}
             </div>
+            <Footer />
         </>
     );
 };
