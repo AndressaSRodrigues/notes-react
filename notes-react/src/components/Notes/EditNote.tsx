@@ -31,7 +31,7 @@ export default function EditModal({ id, onClose, title, content }: EditNoteProps
 
     const toolbarOptions = [
         ['bold', 'italic', 'underline', 'link'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'list': 'bullet' }],
         [{ 'color': [] }],
     ];
 

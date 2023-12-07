@@ -28,7 +28,7 @@ export default function CreateNote() {
 
     const toolbarOptions = [
         ['bold', 'italic', 'underline', 'link'],
-        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'list': 'bullet' }],
         [{ 'color': [] }],
     ];
 
