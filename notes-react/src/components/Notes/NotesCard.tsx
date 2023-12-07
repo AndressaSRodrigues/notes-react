@@ -8,9 +8,8 @@ export default function NotesCard({ id, title, content }: NotesCardProps) {
     const [isEditModalOpen, setEditModalOpen] = useState<boolean>(false);
     const [isDeleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
 
-    const opendEditModal = (id: string) => {
+    const opendEditModal = () => {
         setEditModalOpen(true);
-        console.log(id, 'open modal')
     };
 
     const closeEditModal = () => {
@@ -31,7 +30,7 @@ export default function NotesCard({ id, title, content }: NotesCardProps) {
                 <span className="font-bold text-green">{title}</span>
                 <p className="font-thin">{content}</p>
                 <div className="mt-4 flex items-end justify-end space-x-2">
-                    <Edit data-testid="Edit" className="text-green p-1 cursor-pointer" onClick={() => opendEditModal(id)} />
+                    <Edit data-testid="Edit" className="text-green p-1 cursor-pointer" onClick={() => opendEditModal()} />
                     <DeleteForever data-testid="DeleteForever" className="text-gray-500 p-1 cursor-pointer" onClick={() => openDeleteModal()} />
                 </div>
 
