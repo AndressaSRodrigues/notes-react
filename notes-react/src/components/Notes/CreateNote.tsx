@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../firebase-config";
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import '../../index.css';
 
 export default function CreateNote() {
     const notesCollectionRef = collection(db, 'notes');
@@ -23,6 +26,12 @@ export default function CreateNote() {
         setContent('');
     };
 
+    const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'link'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'color': [] }],
+    ];
+
     return (
         <>
             <div className="flex items-center justify-center">
@@ -33,14 +42,14 @@ export default function CreateNote() {
                         value={title}
                         required
                         onChange={(e) => setTitle(e.target.value)}
-                        className="w-full bg-transparent"
+                        className="w-full bg-transparent p-3"
                     />
-                    <textarea
-                        placeholder="Enter your note here..."
+                    <ReactQuill
                         value={content}
-                        required
-                        onChange={(e) => setContent(e.target.value)}
-                        className="w-full bg-transparent"
+                        onChange={(value) => setContent(value)}
+                        modules={{
+                            toolbar: toolbarOptions
+                        }}
                     />
                     <div className="mt-4 flex justify-end space-x-2">
                         <button
