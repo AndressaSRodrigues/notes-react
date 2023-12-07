@@ -13,9 +13,12 @@ export default function NotesCard({ id, title, content }: NotesCardProps) {
         console.log(id, 'open modal')
     };
 
-    const openDeleteModal = (id: string) => {
+    const closeEditModal = () => {
+        setEditModalOpen(false);
+    };
+
+    const openDeleteModal = () => {
         setDeleteModalOpen(true);
-        console.log(id, 'deleted');
     };
 
     const closeDeleteModal = () => {
@@ -29,11 +32,11 @@ export default function NotesCard({ id, title, content }: NotesCardProps) {
                 <p className="font-thin">{content}</p>
                 <div className="mt-4 flex items-end justify-end space-x-2">
                     <Edit data-testid="Edit" className="text-green p-1 cursor-pointer" onClick={() => opendEditModal(id)} />
-                    <DeleteForever data-testid="DeleteForever" className="text-gray-500 p-1 cursor-pointer" onClick={() => openDeleteModal(id)} />
+                    <DeleteForever data-testid="DeleteForever" className="text-gray-500 p-1 cursor-pointer" onClick={() => openDeleteModal()} />
                 </div>
 
             </article>
-            {isEditModalOpen && <EditModal />}
+            {isEditModalOpen && <EditModal id={id} onClose={closeEditModal} title={title} content={content}/>}
             {isDeleteModalOpen && <DeleteNote id={id} onCancel={closeDeleteModal} />}
         </>
     );
