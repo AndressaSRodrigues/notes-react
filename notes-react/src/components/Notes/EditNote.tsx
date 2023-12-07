@@ -3,6 +3,9 @@ import { db } from "../../firebase-config";
 import { useState } from 'react';
 import DoneIcon from '@mui/icons-material/Done';
 import { EditNoteProps } from "../../interface/editNoteProps";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import '../../index.css';
 
 export default function EditModal({ id, onClose, title, content }: EditNoteProps) {
     const [editedTitle, setEditedTitle] = useState<string>(title || '');
@@ -26,6 +29,12 @@ export default function EditModal({ id, onClose, title, content }: EditNoteProps
         }
     };
 
+    const toolbarOptions = [
+        ['bold', 'italic', 'underline', 'link'],
+        [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+        [{ 'color': [] }],
+    ];
+
     return (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50">
             <div className="w-2/3 h-fit absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-400 bg-black rounded-md p-2 backdrop-sepia">
@@ -33,18 +42,23 @@ export default function EditModal({ id, onClose, title, content }: EditNoteProps
                     <input
                         type="text"
                         value={editedTitle}
-                        className="w-full bg-transparent"
+                        className="w-full bg-transparent p-3"
                         onChange={(e) => setEditedTitle(e.target.value)}
                     />
-                    <textarea
+                    <ReactQuill
                         value={editedContent}
                         className="w-full bg-transparent"
-                        onChange={(e) => setEditedContent(e.target.value)}
+                        onChange={(value) => setEditedContent(value)}
+                        modules={{
+                            toolbar: toolbarOptions
+                        }}
                     />
-                    <button onClick={closeModal}>Cancel</button>
-                    <button className="p-2" onClick={handleDoneClick}>
-                        {<DoneIcon className="text-green" />}
-                    </button>
+                    <div className="flex flex-row gap-5 text-sm">
+                        <button className="text-gray-500 hover:bg-neutral-900 rounded-md p-2" onClick={closeModal}>Cancel</button>
+                        <button className="hover:bg-neutral-900 rounded-md p-2" onClick={handleDoneClick}>
+                            {<DoneIcon className="text-green" />}
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
