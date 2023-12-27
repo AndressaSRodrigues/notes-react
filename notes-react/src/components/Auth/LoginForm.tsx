@@ -1,24 +1,27 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase-config';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from '@firebase/auth';
 import GoogleIcon from '@mui/icons-material/Google';
 
 export default function LoginForm() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [message, setMessage] = useState<string>('');
+    const navigate = useNavigate();
 
-    const login = async () => {
+    const login = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
         try {
-            const user = await signInWithEmailAndPassword(auth, email, password)
-            return user
+            const user = await signInWithEmailAndPassword(auth, email, password);
+            navigate('/main');
+            return user;
         } catch (error) {
             console.error(error);
             setMessage('Invalid credentials');
         }
     };
-
+    
     const inputStyle = 'bg-transparent h-10 border-b-2 border-green';
 
     return (
@@ -46,7 +49,7 @@ export default function LoginForm() {
                         I forgot my password...
                     </a>
                     <button
-                        onClick={login}
+                        onClick={(e) => login(e)}
                         className="h-8 bg-green rounded-md text-sm">
                         Log In
                     </button>
