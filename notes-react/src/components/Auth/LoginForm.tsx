@@ -56,9 +56,6 @@ export default function LoginForm() {
                     <span className='text-green text-[12px] mt-0'>
                         {message}
                     </span>
-                    <a href="" className='text-green text-[12px] mt-0'>
-                        I forgot my password...
-                    </a>
                     <button onClick={(e) => login(e)} className="h-8 bg-green rounded-md text-sm">
                         Log In
                     </button>
