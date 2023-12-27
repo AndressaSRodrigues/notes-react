@@ -25,8 +25,7 @@ export default function LoginForm() {
     const loginWithGoogle = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         try {
-            const result = await signInWithPopup(auth, googleProvider);
-            console.log(result.user);
+            await signInWithPopup(auth, googleProvider);
             navigate('/main');
         } catch (error) {
             console.error(error);

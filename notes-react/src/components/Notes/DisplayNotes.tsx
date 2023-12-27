@@ -7,12 +7,15 @@ import Footer from "../Footer";
 
 export default function DisplayNotes() {
     const notesCollectionRef = collection(db, 'notes');
-    
-    const notesQuery = query(
-        notesCollectionRef,
-        where('userId', '==', auth.currentUser?.uid),
-        orderBy('timestamp', 'desc')
-    );
+
+    const userId = auth.currentUser?.uid;
+    const notesQuery = userId
+        ? query(
+              notesCollectionRef,
+              where('userId', '==', userId),
+              orderBy('timestamp', 'desc')
+          )
+        : query(notesCollectionRef);
 
     const [notes, setNotes] = useState<Notes[]>([]);
 
@@ -33,12 +36,13 @@ export default function DisplayNotes() {
     return (
         <>
             <div className="flex flex-wrap justify-center gap-2 p-1">
-            {notes.map((note) => (
-                <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
-            ))}
+                {notes.map((note) => (
+                    <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
+                ))}
             </div>
             <Footer />
         </>
     );
-};
+}
+
 

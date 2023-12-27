@@ -31,10 +31,9 @@ export default function CreateNote() {
                 console.error("User not logged in");
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     };
-
 
     const handleAddNote = (event: any) => {
         event.preventDefault();
