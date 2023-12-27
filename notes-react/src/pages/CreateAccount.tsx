@@ -1,4 +1,4 @@
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm from "../components/Auth/RegisterForm";
 import Logo from "../assets/logo.png";
 import Footer from "../components/Footer";
 

@@ -1,7 +1,24 @@
-import GoogleIcon from '@mui/icons-material/Google';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebase-config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import GoogleIcon from '@mui/icons-material/Google';
 
 export default function LoginForm() {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
+
+    const login = async () => {
+        try {
+            const user = await signInWithEmailAndPassword(auth, email, password)
+            return user
+        } catch (error) {
+            console.error(error);
+            setMessage('Invalid credentials');
+        }
+    };
+
     const inputStyle = 'bg-transparent h-10 border-b-2 border-green';
 
     return (
@@ -11,16 +28,25 @@ export default function LoginForm() {
                     <input
                         type="email"
                         placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         className={inputStyle} />
                     <input
                         type="password"
                         placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         className={inputStyle} />
+                    <span
+                        className='text-green text-[12px] mt-0'>
+                        {message}
+                    </span>
                     <a href=""
                         className='text-green text-[12px] mt-0'>
                         I forgot my password...
                     </a>
                     <button
+                        onClick={login}
                         className="h-8 bg-green rounded-md text-sm">
                         Log In
                     </button>
@@ -37,4 +63,4 @@ export default function LoginForm() {
             </div>
         </>
     )
-}
+};
