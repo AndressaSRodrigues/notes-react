@@ -1,4 +1,4 @@
-# myNotes - Your Personal Note-Taking Companion
+# myNotes - Your Personal Note Taking App
 
 ## Table of Contents
 
