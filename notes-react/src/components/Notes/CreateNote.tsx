@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebase-config";
+import { db, auth } from "../../firebase-config";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -13,11 +13,28 @@ export default function CreateNote() {
 
     const addNote = async (title: string, content: string) => {
         try {
-            await addDoc(notesCollectionRef, { title, content, timestamp: serverTimestamp() });
+            await new Promise<void>((resolve) => {
+                const unsubscribe = auth.onAuthStateChanged((user) => {
+                    if (user) {
+                        resolve();
+                    }
+                });
+
+                return unsubscribe;
+            });
+
+            const userId = auth.currentUser?.uid;
+
+            if (userId) {
+                await addDoc(notesCollectionRef, { title, content, timestamp: serverTimestamp(), userId });
+            } else {
+                console.error("User not logged in");
+            }
         } catch (error) {
             console.log(error);
         }
     };
+
 
     const handleAddNote = (event: any) => {
         event.preventDefault();
@@ -60,5 +77,5 @@ export default function CreateNote() {
                 </form>
             </div>
         </>
-    )
+    );
 };

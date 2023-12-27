@@ -10,7 +10,6 @@ export default function Notes() {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
-            console.log(user)
             if (!user) {
                 navigate('/');
             }

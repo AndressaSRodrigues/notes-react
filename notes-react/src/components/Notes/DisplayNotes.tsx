@@ -1,5 +1,5 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from '../../firebase-config';
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { db, auth } from '../../firebase-config';
 import { useEffect, useState } from "react";
 import { Notes } from "../../interface/notes";
 import NotesCard from "./NotesCard";
@@ -7,7 +7,13 @@ import Footer from "../Footer";
 
 export default function DisplayNotes() {
     const notesCollectionRef = collection(db, 'notes');
-    const notesQuery = query(notesCollectionRef, orderBy('timestamp', 'desc'));
+    
+    const notesQuery = query(
+        notesCollectionRef,
+        where('userId', '==', auth.currentUser?.uid),
+        orderBy('timestamp', 'desc')
+    );
+
     const [notes, setNotes] = useState<Notes[]>([]);
 
     useEffect(() => {
@@ -22,7 +28,7 @@ export default function DisplayNotes() {
             );
         });
         return () => unsubscribe();
-    }, []);
+    }, [notesQuery]);
 
     return (
         <>
@@ -35,3 +41,4 @@ export default function DisplayNotes() {
         </>
     );
 };
+
