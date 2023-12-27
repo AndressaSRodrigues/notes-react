@@ -35,14 +35,19 @@ export default function DisplayNotes() {
 
     return (
         <>
-            <div className="flex flex-wrap justify-center gap-2 p-1">
-                {notes.map((note) => (
-                    <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
-                ))}
-            </div>
+            {notes.length === 0 ? (
+                <div className="text-center p-4">
+                    <p>You haven't added any notes yet.</p>
+                </div>
+            ) : (
+                <div className="flex flex-wrap justify-center gap-2 p-1">
+                    {notes.map((note) => (
+                        <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
+                    ))}
+                </div>
+            )}
             <Footer />
         </>
     );
 }
-
 

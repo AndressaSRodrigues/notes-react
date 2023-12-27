@@ -11,6 +11,8 @@
 
 Welcome to **myNotes**, your go-to application for hassle-free note-taking. Whether you're jotting down ideas, making to-do lists, or organizing your thoughts, myNotes has you covered. With an intuitive interface and powerful features, managing your notes has never been easier.
 
+![myNotes-login-page](/notes-react/src/assets/myNotes.png)
+
 ## 2. Getting Started
 
 ### Create an Account
