@@ -1,5 +1,5 @@
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from '../../firebase-config';
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { db, auth } from '../../firebase-config';
 import { useEffect, useState } from "react";
 import { Notes } from "../../interface/notes";
 import NotesCard from "./NotesCard";
@@ -7,7 +7,16 @@ import Footer from "../Footer";
 
 export default function DisplayNotes() {
     const notesCollectionRef = collection(db, 'notes');
-    const notesQuery = query(notesCollectionRef, orderBy('timestamp', 'desc'));
+
+    const userId = auth.currentUser?.uid;
+    const notesQuery = userId
+        ? query(
+              notesCollectionRef,
+              where('userId', '==', userId),
+              orderBy('timestamp', 'desc')
+          )
+        : query(notesCollectionRef);
+
     const [notes, setNotes] = useState<Notes[]>([]);
 
     useEffect(() => {
@@ -22,16 +31,18 @@ export default function DisplayNotes() {
             );
         });
         return () => unsubscribe();
-    }, []);
+    }, [notesQuery]);
 
     return (
         <>
             <div className="flex flex-wrap justify-center gap-2 p-1">
-            {notes.map((note) => (
-                <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
-            ))}
+                {notes.map((note) => (
+                    <NotesCard key={note.id} id={note.id} title={note.title} content={note.content} />
+                ))}
             </div>
             <Footer />
         </>
     );
-};
+}
+
+

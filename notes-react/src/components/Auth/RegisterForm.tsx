@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EmailVerificationModal from "./EmailVerificationModal";
-import { auth } from "../firebase-config";
+import { auth } from "../../firebase-config";
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "@firebase/auth";
 
 function RegisterForm() {
