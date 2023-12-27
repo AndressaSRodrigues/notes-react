@@ -17,7 +17,7 @@ export default function Navbar() {
     return (
         <header className="w-full h-[6vh] bg-black flex flex-row justify-between p-3 place-content-center lg:h-[8vh]">
             <img src={Logo} alt="myNotes Logo" width="auto" />
-            <button onClick={logout} className="text-xs">Log Out</button>
+            <button onClick={logout} className="text-xs font-bold hover:text-green">Log Out</button>
         </header>
     )
 };
